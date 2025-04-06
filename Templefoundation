@@ -1,0 +1,34 @@
+TempleOfTheDarkFlame (Node2D)
+├── Background (Sprite)
+├── Foreground (Node2D)
+│   ├── Pillars (Sprite)
+│   ├── Archways (Sprite)
+│   ├── Altar (Sprite)
+│   └── Decorations (Sprites)
+├── Flames (Node2D)
+│   ├── CentralFlame (AnimatedSprite2D or Particle2D)
+│   └── TorchFlames (AnimatedSprite2D or Particle2D)
+└── Forge (Node2D)
+    ├── CentralCircle (Area2D)
+    │   ├── Sprite (Circle visual)
+    │   └── CollisionShape2D (Circle shape)
+    ├── HexagonContainer (Node2D)
+    │   ├── Hexagon1 (Area2D)
+    │   │   ├── Sprite (Hexagon visual)
+    │   │   └── CollisionShape2D (Hexagon shape)
+    │   ├── Hexagon2 (Area2D)
+    │   │   ├── Sprite
+    │   │   └── CollisionShape2D
+    │   ├── Hexagon3 (Area2D)
+    │   │   ├── Sprite
+    │   │   └── CollisionShape2D
+    │   ├── Hexagon4 (Area2D)
+    │   │   ├── Sprite
+    │   │   └── CollisionShape2D
+    │   ├── Hexagon5 (Area2D)
+    │   │   ├── Sprite
+    │   │   └── CollisionShape2D
+    │   └── Hexagon6 (Area2D)
+    │       ├── Sprite
+    │       └── CollisionShape2D
+    └── AnimationPlayer
