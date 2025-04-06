@@ -1,14 +1,17 @@
-extends Control
-class_name HexForgeSlot  # Renamed from HexPanel
+extends Area2D
+class_name HexForgeSlot # Renamed from HexPanel
+
+@onready var border = $Border
 
 # Signals to notify the parent Forge UI about changes
-signal gem_placed(gem: GemResource)  # Emitted when a gem is dropped
-signal gem_cleared()                 # Emitted when the gem is removed
+signal gem_placed(gem: GemResource) # Emitted when a gem is dropped
+signal gem_cleared() # Emitted when the gem is removed
 
 @export var hex_radius: float = 60.0
 
 var label_node: Label
 var current_gem: GemResource = null
+var state = SlotState.EMPTY
 
 # State flags for visual feedback
 var is_hovering: bool = false
@@ -17,7 +20,7 @@ var can_accept_drop_visual: bool = false
 func _ready() -> void:
 	mouse_filter = MOUSE_FILTER_STOP
 	set_process_input(true)
-	
+
 	label_node = Label.new()
 	label_node.name = "HexLabel"
 	label_node.set_anchors_preset(Control.PRESET_CENTER)
@@ -28,22 +31,24 @@ func _ready() -> void:
 	label_node.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	label_node.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	add_child(label_node)
-	
+
 	pivot_offset = Vector2(hex_radius, hex_radius)
 	custom_minimum_size = Vector2(hex_radius * 2, hex_radius * 2)
 	size = custom_minimum_size
-	
-	mouse_entered.connect(_on_mouse_entered)
-	mouse_exited.connect(_on_mouse_exited)
-	
+
+	mouse_entered.connect(_on_mouse_enter)
+	mouse_exited.connect(_on_mouse_exit)
+	input_event.connect(_on_input_event)
+
 	update_display()
+	update_visuals()
 
 func set_gem(new_gem: GemResource) -> void:
 	# Check if the gem actually changed
 	if current_gem == new_gem:
 		return
 	current_gem = new_gem
-	update_display()  # Refresh visuals and label
+	update_display() # Refresh visuals and label
 	if current_gem != null:
 		emit_signal("gem_placed", current_gem)
 	else:
@@ -63,6 +68,17 @@ func update_display() -> void:
 	else:
 		label_node.text = ""
 	queue_redraw()
+
+func update_visuals():
+	match state:
+		SlotState.EMPTY:
+			border.color = Color(0, 0.7, 1, 1) # Cyan
+		SlotState.FILLED:
+			border.color = Color(1, 0.7, 0, 1) # Gold
+		SlotState.HOVER:
+			border.color = Color(1, 1, 1, 1) # White
+		SlotState.DROP_TARGET:
+			border.color = Color(0, 1, 0, 1) # Green
 
 func _draw() -> void:
 	var border_color = Color(0.1, 1.0, 1.0, 1.0)
@@ -131,12 +147,23 @@ func _gui_input(event: InputEvent) -> void:
 				clear_gem()
 				accept_event()
 
-func _on_mouse_entered() -> void:
+func _on_mouse_enter() -> void:
 	is_hovering = true
+	if state == SlotState.EMPTY:
+		state = SlotState.HOVER
+	update_visuals()
 	queue_redraw()
 
 func _on_mouse_exited() -> void:
 	is_hovering = false
 	if can_accept_drop_visual:
 		can_accept_drop_visual = false
+	if state == SlotState.HOVER:
+		state = SlotState.EMPTY
+	update_visuals()
 	queue_redraw()
+
+func _on_input_event(_viewport, event, _shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		if event.pressed and current_gem:
+			clear_gem()

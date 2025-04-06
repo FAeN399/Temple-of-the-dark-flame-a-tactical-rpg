@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "godot-tools.godot-tools",
+        "geequlim.godot-tools",
+        "ms-vscode.cpptools",
+        "eamodio.gitlens",
+        "pkief.material-icon-theme",
+        "slevesque.shader",
+        "wayou.vscode-todo-highlight"
+    ]
+}

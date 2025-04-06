@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xxxxx"]
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.9, 0.1)
+
+[node name="MysticGlow" type="Node2D"]
+
+[node name="GlowSprite" type="Sprite2D" parent="."]
+modulate = Color(0, 0.7, 1, 0.3)
+texture = SubResource("GradientTexture2D_xxxxx")

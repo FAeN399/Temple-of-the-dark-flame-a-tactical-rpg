@@ -60,36 +60,52 @@
 # Dark Forge Project Structure
 ```ascii
 Temple/
+├── .git/                      # Git repository data
+├── .gitignore                 # Git ignore rules
+│
 ├── Scenes/
-│   └── Forge/
-│       ├── DarkForge.tscn       # Main forge scene with radial background
-│       ├── HexForgeSlot.tscn    # Individual hex slot prefab
-│       └── Effects/             # VFX for forge animations
+│   └── Forge/                # All Forge-related scenes
+│       ├── DarkForge.tscn    # Main forge scene
+│       ├── HexForgeSlot.tscn # Hex slot prefab
+│       └── Effects/          # Visual effects
 │           └── MysticGlow.tscn
 │
 ├── Scripts/
-│   └── Forge/
-│       ├── DarkForge.gd         # Main forge logic & hex positioning
-│       ├── hex_forge_slot.gd    # Hex slot behavior & gem handling
-│       └── center_circle.gd     # Rotating merkaba visualization
+│   └── Forge/               # All Forge-related scripts
+│       ├── DarkForge.gd
+│       ├── hex_forge_slot.gd
+│       ├── center_circle.gd
+│       └── Types/
+│           └── forge_types.gd
 │
 ├── Resources/
-│   ├── Forge/
-│   │   ├── forge_gradient.tres  # Radial background resource
-│   │   └── merkaba.svg         # Center shape graphic
+│   ├── Textures/            # All game textures
+│   │   ├── merkaba.svg
+│   │   └── hex_slot.svg
 │   │
-│   ├── Gems/                   # Gem definitions
+│   ├── Materials/           # Shader materials
+│   │   └── glow_material.tres
+│   │
+│   ├── Gems/
+│   │   ├── gem_data.tres
 │   │   ├── fire_gem.tres
-│   │   ├── water_gem.tres
-│   │   └── ...
+│   │   └── water_gem.tres
 │   │
-│   └── Shards/                 # Basic shard resources
-│       ├── fire_shard.tres
-│       ├── water_shard.tres
-│       └── ...
+│   ├── Shards/
+│   │   ├── shard_data.tres
+│   │   ├── fire_shard.tres
+│   │   └── water_shard.tres
+│   │
+│   └── Themes/
+│       └── dark_theme.tres
 │
-└── addons/                     # Optional editor plugins
-    └── forge_tools/           # Custom forge editing tools
+├── addons/
+│   └── forge_tools/
+│       ├── plugin.cfg        # Plugin configuration
+│       └── forge_editor.gd   # Editor integration
+│
+└── project.godot            # Godot project file
+```
 
 ## Key Components
 
@@ -135,6 +151,40 @@ Temple/
    ```bash
    git push -u origin main
    ```
+
+### Development Setup
+1. Godot Setup:
+   - Download Godot 4.2.1 (stable)
+   - DO NOT use newer versions to avoid compatibility issues
+   - Project Settings > General > Advanced:
+     - Set "Force Compatibility" to your version (4.2)
+
+2. VS Code Extensions:
+   - godot-tools.godot-tools (Godot GDScript support)
+   - geequlim.godot-tools (Godot Tools)
+   - ms-vscode.cpptools (C/C++ for GDExtension)
+   - eamodio.gitlens (Git integration)
+   - pkief.material-icon-theme (Better file icons)
+   - slevesque.shader (Shader syntax)
+   - wayou.vscode-todo-highlight (TODO highlighting)
+
+3. Workspace Settings:
+   ```json
+   {
+     "editor.formatOnSave": true,
+     "files.autoSave": "afterDelay",
+     "godot_tools.gdscript_lsp_server_port": 6008
+   }
+   ```
+
+4. Godot Editor Configuration:
+   1. Open Godot Editor Settings
+   2. Navigate to Text Editor > External
+   3. Enable "Use External Editor"
+   4. Set Exec Path:
+      - Windows: `C:\Users\<username>\AppData\Local\Programs\Microsoft VS Code\Code.exe`
+      - macOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Electron`
+   5. Set Exec Flags: `{project} --goto {file}:{line}:{col}`
 
 ### Priority Tasks
 1. Create base scene layout (DarkForge.tscn)

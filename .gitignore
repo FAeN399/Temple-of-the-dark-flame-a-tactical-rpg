@@ -5,3 +5,8 @@
 *.import
 *.tmp
 /android/
+
+# VS Code specific
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
