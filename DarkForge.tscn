@@ -1,0 +1,38 @@
+[gd_scene format=5]
+
+[ext_resource type="Script" path="res://Scripts/Forge/DarkForge.gd" id="1"]
+
+[node name="DarkForge" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource("1")
+
+# -- Background: Using a ColorRect with a radial gradient.
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[resource type="StyleBoxFlat" id="2"]
+bg_color = Color(0, 0, 0, 1)
+
+[resource type="Gradient" id="3"]
+colors = [Color(0.101961, 0, 0.164706, 1), Color(0, 0, 0, 1)]
+offsets = [0.0, 1.0]
+
+[resource type="GradientTexture" id="4"]
+gradient = Resource("3")
+width = 256
+height = 256
+radial = true
+
+[resource type="StyleBoxFlat" id="5"]
+bg_color = Color(1,1,1,1)
+texture = ExtResource("4")
+texture_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+custom_styles/normal = Resource("5")

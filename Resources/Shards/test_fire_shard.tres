@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ShardResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Items/shard_resource.gd" id="1_shard"]
+
+[resource]
+script = ExtResource("1_shard")
+shard_type = "Fire"
+power_level = 1
+element = "Fire"
+description = "A basic fire shard for testing"
