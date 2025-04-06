@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0r3ihg42oxxm"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ipno0"]
+load_path = "res://.godot/imported/prototype tileset.png-768056e5c645e55b26efa909e3175635.ctex"
+
+[node name="PrototypeTileset" type="Sprite2D"]
+position = Vector2(98, 139)
+scale = Vector2(5.6875, 6.15625)
+texture = SubResource("CompressedTexture2D_ipno0")
