@@ -119,7 +119,8 @@ Temple/
 ## Implementation Notes
 
 ### GitHub Setup
-1. Create a new GitHub repository and link it to this project.
+1. Link this project to your GitHub repo:
+   git remote add origin https://github.com/FAeN399/Temple-of-the-dark-flame-a-tactical-rpg
 2. Add a .gitignore tailored for Godot projects (exclude .import, .godot, etc.).
 3. Follow branching guidelines for feature development and integration.
 
