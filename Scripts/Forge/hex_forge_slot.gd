@@ -1,7 +1,7 @@
-extends Control
+extends Area2D
 class_name HexForgeSlot # Renamed from HexPanel
 
-enum SlotState { EMPTY, FILLED, HOVER, DROP_TARGET }
+enum SlotState {EMPTY, FILLED, HOVER, DROP_TARGET}
 
 @onready var border = $Border
 
@@ -20,27 +20,21 @@ var is_hovering: bool = false
 var can_accept_drop_visual: bool = false
 
 func _ready() -> void:
-	mouse_filter = MOUSE_FILTER_STOP
 	set_process_input(true)
 
 	label_node = Label.new()
 	label_node.name = "HexLabel"
-	label_node.set_anchors_preset(Control.PRESET_CENTER)
-	label_node.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	label_node.grow_vertical = Control.GROW_DIRECTION_BOTH
+	label_node.position = Vector2(-hex_radius, -hex_radius)
+	label_node.size = Vector2(hex_radius * 2, hex_radius * 2)
 	label_node.text = ""
 	label_node.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label_node.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	label_node.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	add_child(label_node)
 
-	pivot_offset = Vector2(hex_radius, hex_radius)
-	custom_minimum_size = Vector2(hex_radius * 2, hex_radius * 2)
 	mouse_entered.connect(_on_mouse_enter)
 	mouse_exited.connect(_on_mouse_exited)
-	gui_input.connect(_on_input_event)
-	mouse_exited.connect(_on_mouse_exited)
-	gui_input.connect(_on_gui_input)
+	input_event.connect(_on_input_event)
 
 	update_display()
 	update_visuals()
@@ -102,10 +96,9 @@ func _draw() -> void:
 		fill_color = Color(0.4, 0.4, 0.4, 0.4)
 
 	var points = get_hex_points(hex_radius)
-	var center_offset = size / 2.0 - Vector2(hex_radius, hex_radius)
 	var centered_points = PackedVector2Array()
 	for p in points:
-		centered_points.append(p + center_offset)
+		centered_points.append(p)
 
 	draw_colored_polygon(centered_points, fill_color)
 	var closed_points = centered_points + [centered_points[0]]
@@ -142,9 +135,8 @@ func _gui_input(event: InputEvent) -> void:
 				print("Left-clicked empty slot.")
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			if current_gem != null:
-				event.accept()
+				get_viewport().set_input_as_handled()
 				clear_gem()
-				accept_event()
 
 func _on_mouse_enter() -> void:
 	is_hovering = true
