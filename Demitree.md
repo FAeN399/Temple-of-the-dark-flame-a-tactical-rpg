@@ -163,7 +163,12 @@ Temple/
    - godot-tools.godot-tools (Godot GDScript support)
    - geequlim.godot-tools (Godot Tools)
    - ms-vscode.cpptools (C/C++ for GDExtension)
-   - eamodio.gitlens (Git integration)
+   - eamodio.gitlens (Enhanced Git features):
+     - Inline blame annotations
+     - File and line history
+     - Branch/tag comparison
+     - Repository visualization
+     - Commit exploring without leaving editor
    - pkief.material-icon-theme (Better file icons)
    - slevesque.shader (Shader syntax)
    - wayou.vscode-todo-highlight (TODO highlighting)

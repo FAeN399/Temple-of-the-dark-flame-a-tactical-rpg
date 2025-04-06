@@ -1,5 +1,7 @@
-extends Area2D
+extends Control
 class_name HexForgeSlot # Renamed from HexPanel
+
+enum SlotState { EMPTY, FILLED, HOVER, DROP_TARGET }
 
 @onready var border = $Border
 
@@ -34,11 +36,11 @@ func _ready() -> void:
 
 	pivot_offset = Vector2(hex_radius, hex_radius)
 	custom_minimum_size = Vector2(hex_radius * 2, hex_radius * 2)
-	size = custom_minimum_size
-
 	mouse_entered.connect(_on_mouse_enter)
-	mouse_exited.connect(_on_mouse_exit)
-	input_event.connect(_on_input_event)
+	mouse_exited.connect(_on_mouse_exited)
+	gui_input.connect(_on_input_event)
+	mouse_exited.connect(_on_mouse_exited)
+	gui_input.connect(_on_gui_input)
 
 	update_display()
 	update_visuals()
@@ -119,21 +121,18 @@ func get_hex_points(r: float) -> PackedVector2Array:
 		var y = center.y + r * sin(angle)
 		pts.append(Vector2(x, y))
 	return pts
-
-func _can_drop_data(at_position: Vector2, data) -> bool:
+func _can_drop_data(_at_position: Vector2, data) -> bool:
 	var can_drop_now = (data is GemResource)
 	if can_accept_drop_visual != can_drop_now:
 		can_accept_drop_visual = can_drop_now
 		queue_redraw()
 	return can_drop_now
-
-func _drop_data(at_position: Vector2, data) -> void:
+func _drop_data(_at_position: Vector2, data) -> void:
 	if data is GemResource:
 		set_gem(data)
 	if can_accept_drop_visual:
 		can_accept_drop_visual = false
 		queue_redraw()
-
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT:
@@ -143,7 +142,7 @@ func _gui_input(event: InputEvent) -> void:
 				print("Left-clicked empty slot.")
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			if current_gem != null:
-				print("Right-clicked: Clearing gem.")
+				event.accept()
 				clear_gem()
 				accept_event()
 

@@ -37,10 +37,10 @@ signal forge_complete(result: FusedGemResource)
 
 var can_forge := false
 
-func _on_slot_gem_placed(gem: GemResource, slot_index: int) -> void:
+func _on_slot_gem_placed(_gem: GemResource, _slot_index: int) -> void:
     check_forge_status()
 
-func _on_slot_gem_cleared(slot_index: int) -> void:
+func _on_slot_gem_cleared(_slot_index: int) -> void:
     can_forge = false
 
 func check_forge_status() -> void:

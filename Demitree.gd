@@ -8,7 +8,7 @@ class_name Demitree
 
 func _ready() -> void:
 	# Placeholder for initialization logic.
-	update()
+	pass
 
 func _draw() -> void:
 	# Draw the trunk.
