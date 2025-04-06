@@ -2,12 +2,15 @@
     "editor.formatOnSave": true,
     "files.autoSave": "afterDelay",
     "godot_tools.gdscript_lsp_server_port": 6008,
+    "godot_tools.editor_path": "C:\\Path\\To\\Your\\Godot_v4.2.1-stable_win64.exe",
     "files.associations": {
         "*.gd": "gdscript",
         "*.tscn": "gdresource",
         "*.tres": "gdresource"
     },
-    "editor.rulers": [100],
+    "editor.rulers": [
+        100
+    ],
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
     "files.trimTrailingWhitespace": true,
