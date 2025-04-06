@@ -119,10 +119,22 @@ Temple/
 ## Implementation Notes
 
 ### GitHub Setup
-1. Link this project to your GitHub repo:
+1. Initialize and commit:
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   ```
+2. Set up remote and fetch:
+   ```bash
+   git branch -M main
    git remote add origin https://github.com/FAeN399/Temple-of-the-dark-flame-a-tactical-rpg
-2. Add a .gitignore tailored for Godot projects (exclude .import, .godot, etc.).
-3. Follow branching guidelines for feature development and integration.
+   git pull origin main --allow-unrelated-histories
+   ```
+3. Push merged changes:
+   ```bash
+   git push -u origin main
+   ```
 
 ### Priority Tasks
 1. Create base scene layout (DarkForge.tscn)
